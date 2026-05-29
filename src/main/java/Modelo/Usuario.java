@@ -11,8 +11,8 @@ package Modelo;
 public class Usuario extends Persona {
     private boolean estado;
 
-    public Usuario(String nombre, String apellido, String dni, String contraseña) {
-        super(nombre, apellido, dni, contraseña);
+    public Usuario() {
+        estado = true;
     }
     
     public void registrarZonas(){}

@@ -14,12 +14,30 @@ public abstract class Persona {
     protected String dni;
     protected String contraseña;
     
-    public Persona(String nombre, String apellido, String dni, String contraseña) {
+    public Persona() {
+        this.nombre = "";
+        this.apellido = "";
+        this.dni = "";
+        this.contraseña = "";
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+    
+    
     
     abstract boolean registrarTarjeta();
     abstract boolean eliminarTarjeta();

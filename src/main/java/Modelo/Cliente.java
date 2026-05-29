@@ -11,14 +11,18 @@ package Modelo;
 public class Cliente extends Persona {
     private int puntos;
 
-    public Cliente(String nombre, String apellido, String dni, String clave) {
+    public Cliente() {
         this.puntos = 0;
-        super(nombre, apellido, dni, clave);
+        super();
     }
     
-    private boolean ingresar(String usuario, String clave) {
+    public boolean ingresar(String nombre, String apellido, String dni, String clave) {
         // lógica de autenticación
-        return false;
+        super.nombre = nombre;
+        super.apellido = apellido;
+        super.dni = dni;
+        super.contraseña = contraseña;
+        return true;
     }
 
     @Override
