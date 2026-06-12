@@ -10,47 +10,43 @@ package Modelo;
  */
 public class Cliente extends Persona {
     private int puntos;
+    private Tarjeta tarjeta;  
 
-    public Cliente() {
+    public Cliente(String nombre, String apellido, String dni, String contrasena) {
+        super(nombre, apellido, dni, contrasena);
         this.puntos = 0;
-        super();
+
     }
     
-    public boolean ingresar(String nombre, String apellido, String dni, String clave) {
-        // lógica de autenticación
-        super.nombre = nombre;
-        super.apellido = apellido;
-        super.dni = dni;
-        super.contraseña = contraseña;
-        return true;
+    public boolean ingresar(String usuario, String clave) {
+        return getDni().equals(usuario) && getContrasena().equals(clave);
     }
 
     @Override
-    boolean registrarTarjeta() {
-        
-        return false;
-        
+    public Venta comprar(Zona zona, int cantidad) {
+        Venta venta = super.comprar(zona, cantidad);
+        if (venta != null) {
+            puntos += cantidad;
+        }
+        return venta;
     }
 
     @Override
-    boolean eliminarTarjeta() {
-        
+    public boolean anularVenta(Venta venta) {
+        int entradasAnuladas = venta.getEntradas().size();
+        if (super.anularVenta(venta)) {
+            puntos -= entradasAnuladas;
+            return true;
+        }
         return false;
-        
     }
 
-    @Override
-    boolean anularVenta() {
-        
-        return false;
-        
-    }
+    public int getPuntos() { return puntos; }
+
 
     @Override
-    boolean comprar() {
-        
-        return false;
-        
+    public String toString() {
+        return "Cliente: " + super.toString() + " | Puntos: " + puntos;
     }
 
 }

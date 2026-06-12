@@ -3,37 +3,66 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author adrian_pc
  */
 public class Usuario extends Persona {
     private boolean estado;
-
-    public Usuario() {
-        estado = true;
+    private Concierto concierto;
+    
+    public Usuario(String nombres, String apellidos, String dni, String contrasena, Concierto concierto) {
+        super(nombres, apellidos, dni, contrasena);
+        this.estado    = true;
+        this.concierto = concierto;
     }
     
-    public void registrarZonas(){}
+    // Un Usuario suspendido no debería poder iniciar sesion
+    public boolean ingresar(String usuario, String clave) {
+        return (getDni().equals(usuario) && getContrasena().equals(clave)) && estado;
+    }   
+    
+    public boolean registrarZona(String nombre, int capacidad, double precio) {
+        if (!estado)                          return false;
+        if (nombre == null || nombre.isEmpty()) return false;
+        if (capacidad <= 0 || precio <= 0)    return false;
 
-    @Override
-    boolean registrarTarjeta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Zona nuevaZona = new Zona(nombre, capacidad, precio);
+        return concierto.agregarZona(nuevaZona);
     }
 
-    @Override
-    boolean eliminarTarjeta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean eliminarZona(String nombre) {
+        if (!estado) return false;
+        return concierto.eliminarZona(nombre);
     }
 
-    @Override
-    boolean anularVenta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Zona> consultarZonas() {
+        if (!estado) return new ArrayList<>();
+        return concierto.getZonas();
     }
 
+    public List<Zona> consultarZonasDisponibles() {
+        if (!estado) return new ArrayList<>();
+        return concierto.consultarZonasDisponibles();
+    }
+
+    public List<Venta> consultarTodasLasVentas(List<Persona> personas) {
+        List<Venta> todas = new ArrayList<>();
+        for (Persona p : personas) {
+            todas.addAll(p.getVentas());
+        }
+        return todas;
+    }
+
+    public boolean   getEstado()    { return estado; }
+    public Concierto getConcierto() { return concierto; }
+    public void      setEstado(boolean estado) { this.estado = estado; }
+
     @Override
-    boolean comprar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String toString() {
+        return "Administrador: " + super.toString()
+             + " | Estado: " + (estado ? "Activo" : "Suspendido");
     }
 }

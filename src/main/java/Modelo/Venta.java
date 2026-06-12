@@ -4,23 +4,64 @@
  */
 package Modelo;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author adrian_pc
  */
 public class Venta {
-    private Date fecha;
-    private int monto;
+    
+    public static final String ESTADO_ACTIVA   = "ACTIVA";
+    public static final String ESTADO_ANULADA  = "ANULADA";
 
-    public Venta(Date fecha, int monto) {
-        this.fecha = fecha;
-        this.monto = monto;
+    private Date fecha;
+    private double monto;
+    private String estado;
+    private Zona zona;
+    private Tarjeta tarjeta;
+    private List<Entrada> entradas; 
+
+    public Venta(Zona zona, Tarjeta tarjeta, List<Entrada> entradas) {
+        this.fecha    = new Date();
+        this.zona     = zona;
+        this.tarjeta  = tarjeta;
+        this.entradas = entradas;
+        this.estado   = ESTADO_ACTIVA;
+        this.monto    = calcularMonto();
     }
     
+    public double calcularMonto() {
+        return zona.getPrecio() * entradas.size();
+    }
     
-    
-    public boolean anular(){
+    public boolean anular() {
+        if (!estado.equals(ESTADO_ACTIVA)) return false;
+        if (zona.liberarEntradas(entradas)) {
+            estado = ESTADO_ANULADA;
+            return true;
+        }
         return false;
     }
+    
+    public boolean estaActiva() {
+        return estado.equals(ESTADO_ACTIVA);
+    }
+    
+    public Date          getFecha()    { return fecha; }
+    public double        getMonto()    { return monto; }
+    public String        getEstado()   { return estado; }
+    public Zona          getZona()     { return zona; }
+    public Tarjeta       getTarjeta()  { return tarjeta; }
+    public List<Entrada> getEntradas() { return entradas; }
+    
+    @Override
+    public String toString() {
+        return "Venta ["  + estado + "]"
+             + " | Zona: " + zona.getNombre()
+             + " | Entradas: " + entradas.size()
+             + " | Monto: S/." + monto
+             + " | Tarjeta: " + tarjeta.getNumeroEnmascarado()
+             + " | Fecha: " + fecha;
+    }   
 }

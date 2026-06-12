@@ -9,20 +9,39 @@ package Modelo;
  * @author adrian_pc
  */
 public class Entrada {
-    
-    private int numero;
+    public static final String ESTADO_DISPONIBLE = "DISPONIBLE";
+    public static final String ESTADO_VENDIDA    = "VENDIDA";
+    public static final String ESTADO_LIBERADA   = "LIBERADA";
+
+    private int    numero;
     private String estado;
 
-    public Entrada(int numero, String estado) {
+    public Entrada(int numero) {
         this.numero = numero;
-        this.estado = estado;
+        this.estado = ESTADO_DISPONIBLE;
     }
     
-    public boolean vender(){
-        return false;
+    public boolean vender() {
+        if (!estado.equals(ESTADO_DISPONIBLE)) {
+            return false;
+        }
+        estado = ESTADO_VENDIDA;
+        return true;
+    }  
+
+    public boolean liberar() {
+        if (!estado.equals(ESTADO_VENDIDA)) {
+            return false;
+        }
+        estado = ESTADO_LIBERADA;
+        return true;
     }
-    public boolean liberar(){
-        return false;
+    public boolean estaDisponible() {
+        return estado.equals(ESTADO_DISPONIBLE);
     }
+    
+    public int    getNumero() { return numero; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
     
 }
