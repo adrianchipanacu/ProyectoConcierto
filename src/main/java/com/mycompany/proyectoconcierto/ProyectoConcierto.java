@@ -1,17 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
 
 package com.mycompany.proyectoconcierto;
-import Modelo.*;
+import controlador.ControladorLogin;
+import vista.FrmLogin;
 
-/**
- *
- * @author adrian_pc
- */
 public class ProyectoConcierto {
-
     public static void main(String[] args) {
-
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                FrmLogin frmLogin = new FrmLogin();
+                new ControladorLogin(frmLogin);
+                frmLogin.setVisible(true);
+            }
+        });
     }
 }
