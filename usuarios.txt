@@ -1,0 +1,6 @@
+ADMIN,admin,1234,Admin,General,0
+CLIENTE,77777777,12345,phool,condo,0,
+CLIENTE,6767,12345,Kevin,Edu,0,
+CLIENTE,48426532,123456,Denis,Cabello,0,
+CLIENTE,72911204,8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92,ray,vasq,0,
+CLIENTE,48426531,8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92,Emilio,Cabello,0,den.cabello1@gmail.com
